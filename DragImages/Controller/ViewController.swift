@@ -101,7 +101,6 @@ extension ViewController: UIDragInteractionDelegate {
     
     func dragInteraction(_ interaction: UIDragInteraction, previewForLifting item: UIDragItem, session: UIDragSession) -> UITargetedDragPreview? {
         
-        //TODO: - UIDragPreviewParameters
         return UITargetedDragPreview(view: item.localObject as! UIView)
     }
     
