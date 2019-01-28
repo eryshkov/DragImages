@@ -21,7 +21,7 @@
 * no-storyboard design
 
 ## Credits
-* thanks to Brian Voong and his [awesome tutorial](https://www.letsbuildthatapp.com/course_video?id=1532)
+* thanks to **Brian Voong** and his [awesome tutorial](https://www.letsbuildthatapp.com/course_video?id=1532)
 
 ## License
 
