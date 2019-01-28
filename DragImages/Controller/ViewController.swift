@@ -11,10 +11,10 @@ import UIKit
 class ViewController: UIViewController {
     //MARK: -
     @objc func handleShare() {
-        UIGraphicsBeginImageContext(view.frame.size)
-        view.layer.render(in: UIGraphicsGetCurrentContext()!)
-        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {return}
-        UIGraphicsEndImageContext()
+        let renderer = UIGraphicsImageRenderer(size: view.bounds.size)
+        let image = renderer.image { (ctx) in
+            view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
+        }
         
         let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         activityVC.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
