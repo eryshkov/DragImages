@@ -10,6 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
     //MARK: -
+    var localTouchedPoint: CGPoint!
+    
+    //MARK: -
     @objc func handleShare() {
         let renderer = UIGraphicsImageRenderer(size: view.bounds.size)
         let image = renderer.image { (ctx) in
@@ -64,8 +67,11 @@ extension ViewController: UIDropInteractionDelegate {
                     imageView.layer.borderColor = UIColor.black.cgColor
                     self.view.addSubview(imageView)
                     imageView.frame = CGRect(x: 0, y: 0, width: draggedImage.size.width, height: draggedImage.size.height)
-                    let centerPoint = session.location(in: self.view)
-                    imageView.center = centerPoint
+                    
+                    let globalPoint = session.location(in: self.view)
+//                    let centerPoint = CGPoint(x: <#T##CGFloat#>, y: <#T##CGFloat#>)
+                    
+                    imageView.center = globalPoint
                 }
             }
         }
@@ -76,11 +82,16 @@ extension ViewController: UIDragInteractionDelegate {
     func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
         
         let touchedPoint = session.location(in: self.view)
+
         if let touchedImageView = self.view.hitTest(touchedPoint, with: nil) as? UIImageView {
             let touchedImage = touchedImageView.image!
             let itemProvider = NSItemProvider(object: touchedImage)
             let dragItem = UIDragItem(itemProvider: itemProvider)
             dragItem.localObject = touchedImageView
+            
+            localTouchedPoint = session.location(in: touchedImageView)
+            print("localTouchedPoint=\(String(describing: localTouchedPoint))")
+            
             return [dragItem]
         }
         
