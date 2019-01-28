@@ -104,4 +104,8 @@ extension ViewController: UIDragInteractionDelegate {
     func dragInteraction(_ interaction: UIDragInteraction, item: UIDragItem, willAnimateCancelWith animator: UIDragAnimating) {
         self.view.addSubview(item.localObject as! UIView)
     }
+    
+    func dragInteraction(_ interaction: UIDragInteraction, prefersFullSizePreviewsFor session: UIDragSession) -> Bool {
+        return true
+    }
 }
