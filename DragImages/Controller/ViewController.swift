@@ -9,9 +9,27 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    //MARK: -
+    @objc func handleShare() {
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {return}
+        UIGraphicsEndImageContext()
+        
+        let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        activityVC.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        
+        present(activityVC, animated: true, completion: nil)
+    }
+    
+    //MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .white
+        
+        navigationItem.title = "Collage Sharing"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(handleShare))
         
         view.addInteraction(UIDropInteraction(delegate: self))
         view.addInteraction(UIDragInteraction(delegate: self))
@@ -42,6 +60,8 @@ extension ViewController: UIDropInteractionDelegate {
                 DispatchQueue.main.async {
                     let imageView = UIImageView(image: draggedImage)
                     imageView.isUserInteractionEnabled = true
+                    imageView.layer.borderWidth = 4
+                    imageView.layer.borderColor = UIColor.black.cgColor
                     self.view.addSubview(imageView)
                     imageView.frame = CGRect(x: 0, y: 0, width: draggedImage.size.width, height: draggedImage.size.height)
                     let centerPoint = session.location(in: self.view)
