@@ -14,11 +14,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         view.addInteraction(UIDropInteraction(delegate: self))
+        view.addInteraction(UIDragInteraction(delegate: self))
     }
 
 
 }
-
+//MARK: -
 extension ViewController: UIDropInteractionDelegate {
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
         return session.canLoadObjects(ofClass: UIImage.self)
@@ -40,6 +41,7 @@ extension ViewController: UIDropInteractionDelegate {
                 
                 DispatchQueue.main.async {
                     let imageView = UIImageView(image: draggedImage)
+                    imageView.isUserInteractionEnabled = true
                     self.view.addSubview(imageView)
                     imageView.frame = CGRect(x: 0, y: 0, width: draggedImage.size.width, height: draggedImage.size.height)
                     let centerPoint = session.location(in: self.view)
@@ -48,4 +50,23 @@ extension ViewController: UIDropInteractionDelegate {
             }
         }
     }
+}
+//MARK: -
+extension ViewController: UIDragInteractionDelegate {
+    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        
+        let touchedPoint = session.location(in: self.view)
+        if let touchedImageView = self.view.hitTest(touchedPoint, with: nil) as? UIImageView {
+            let touchedImage = touchedImageView.image!
+            let itemProvider = NSItemProvider(object: touchedImage)
+            let dragItem = UIDragItem(itemProvider: itemProvider)
+            return [dragItem]
+        }
+        
+        
+        return []
+    }
+    
+    
+    
 }
