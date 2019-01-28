@@ -54,14 +54,38 @@
 		5C948EF321FEFC2B00AE2601 /* DragImages */ = {
 			isa = PBXGroup;
 			children = (
-				5C948EF421FEFC2B00AE2601 /* AppDelegate.swift */,
-				5C948EF621FEFC2B00AE2601 /* ViewController.swift */,
-				5C948EF821FEFC2B00AE2601 /* Main.storyboard */,
+				5C948F0821FEFC7A00AE2601 /* Model */,
+				5C948F0721FEFC7100AE2601 /* View */,
+				5C948F0621FEFC6800AE2601 /* Controller */,
 				5C948EFB21FEFC2C00AE2601 /* Assets.xcassets */,
-				5C948EFD21FEFC2C00AE2601 /* LaunchScreen.storyboard */,
+				5C948EF421FEFC2B00AE2601 /* AppDelegate.swift */,
 				5C948F0021FEFC2C00AE2601 /* Info.plist */,
 			);
 			path = DragImages;
+			sourceTree = "<group>";
+		};
+		5C948F0621FEFC6800AE2601 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5C948EF621FEFC2B00AE2601 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		5C948F0721FEFC7100AE2601 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5C948EF821FEFC2B00AE2601 /* Main.storyboard */,
+				5C948EFD21FEFC2C00AE2601 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5C948F0821FEFC7A00AE2601 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
