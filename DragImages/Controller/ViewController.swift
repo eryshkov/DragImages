@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     //MARK: -
-    var localTouchedPoint: CGPoint!
+    var deltaPoint = CGPoint.zero
     
     //MARK: -
     @objc func handleShare() {
@@ -69,9 +69,9 @@ extension ViewController: UIDropInteractionDelegate {
                     imageView.frame = CGRect(x: 0, y: 0, width: draggedImage.size.width, height: draggedImage.size.height)
                     
                     let globalPoint = session.location(in: self.view)
-//                    let centerPoint = CGPoint(x: <#T##CGFloat#>, y: <#T##CGFloat#>)
+                    let centerPoint = CGPoint(x: globalPoint.x + self.deltaPoint.x, y: globalPoint.y + self.deltaPoint.y)
                     
-                    imageView.center = globalPoint
+                    imageView.center = centerPoint
                 }
             }
         }
@@ -89,8 +89,8 @@ extension ViewController: UIDragInteractionDelegate {
             let dragItem = UIDragItem(itemProvider: itemProvider)
             dragItem.localObject = touchedImageView
             
-            localTouchedPoint = session.location(in: touchedImageView)
-            print("localTouchedPoint=\(String(describing: localTouchedPoint))")
+            let localTouchedPoint = session.location(in: touchedImageView)
+            deltaPoint = localTouchedPoint.getDelta(withRect: touchedImageView.bounds)
             
             return [dragItem]
         }
