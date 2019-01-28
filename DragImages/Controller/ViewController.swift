@@ -60,6 +60,7 @@ extension ViewController: UIDragInteractionDelegate {
             let touchedImage = touchedImageView.image!
             let itemProvider = NSItemProvider(object: touchedImage)
             let dragItem = UIDragItem(itemProvider: itemProvider)
+            dragItem.localObject = touchedImageView
             return [dragItem]
         }
         
@@ -67,6 +68,20 @@ extension ViewController: UIDragInteractionDelegate {
         return []
     }
     
+    func dragInteraction(_ interaction: UIDragInteraction, previewForLifting item: UIDragItem, session: UIDragSession) -> UITargetedDragPreview? {
+        
+        return UITargetedDragPreview(view: item.localObject as! UIView)
+    }
     
+    func dragInteraction(_ interaction: UIDragInteraction, willAnimateLiftWith animator: UIDragAnimating, session: UIDragSession) {
+        session.items.forEach { (dragItem) in
+            if let touchedImageView = dragItem.localObject as? UIView {
+                touchedImageView.removeFromSuperview()
+            }
+        }
+    }
     
+    func dragInteraction(_ interaction: UIDragInteraction, item: UIDragItem, willAnimateCancelWith animator: UIDragAnimating) {
+        self.view.addSubview(item.localObject as! UIView)
+    }
 }
