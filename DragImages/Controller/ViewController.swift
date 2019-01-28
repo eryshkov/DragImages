@@ -42,6 +42,8 @@ extension ViewController: UIDropInteractionDelegate {
                     let imageView = UIImageView(image: draggedImage)
                     self.view.addSubview(imageView)
                     imageView.frame = CGRect(x: 0, y: 0, width: draggedImage.size.width, height: draggedImage.size.height)
+                    let centerPoint = session.location(in: self.view)
+                    imageView.center = centerPoint
                 }
             }
         }
